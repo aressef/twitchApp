@@ -1,3 +1,6 @@
+// Array of Twitch users
+var userArray = ["freecodecamp", "ESL_SC2", "BikeMan", "Dazss", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
+
 
 // AJAX Request to Twitch.tv API
 
@@ -27,24 +30,29 @@ function createCORSRequest(method, url) {
 }
 
 function makeCORSRequest(){
-  var url = 'https://wind-bow.glitch.me/twitch-api/users/freecodecamp';
 
-  var xhr = createCORSRequest('GET', url);
-  if (!xhr) {
-    throw new Error('CORS not supported');
-  }
+  userArray.forEach(function(user) {
+    var url = 'https://wind-bow.glitch.me/twitch-api/users/' + user;
 
-  xhr.onload = function() {
-  var responseText = xhr.responseText;
-  console.log(responseText);
-  // process the response.
-  };
+    var xhr = createCORSRequest('GET', url);
+    if (!xhr) {
+      throw new Error('CORS not supported');
+    }
 
-  xhr.onerror = function() {
-   console.log('There was an error!');
-  };
+    xhr.onload = function() {
+      var responseText = xhr.responseText;
+      var parsed = JSON.parse(responseText);
+      console.log(parsed);
+    };
 
-  xhr.send();
+    xhr.onerror = function() {
+     console.log('There was an error!');
+    };
+
+    xhr.send();
+
+  });
+
 
 }
 

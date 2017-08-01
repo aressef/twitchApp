@@ -29,6 +29,7 @@ var communicationWithTwitchAPI = {
     return xhr;
   },
   makeCORSRequest: function() {
+    queryResults = [];
     userArray.forEach(function(user) {
       var url = 'https://wind-bow.glitch.me/twitch-api/users/' + user;
 
@@ -39,8 +40,8 @@ var communicationWithTwitchAPI = {
 
       xhr.onload = function() {
         var responseText = xhr.responseText;
-        var parsed = JSON.parse(responseText);
-        console.log(parsed);
+        parsed = JSON.parse(responseText);
+        queryResults.push(parsed);
       };
 
       xhr.onerror = function() {
@@ -50,8 +51,31 @@ var communicationWithTwitchAPI = {
       xhr.send();
 
     });
+
+    console.log(queryResults);
+  }
+};
+
+var display = {
+  users: function() {
+    var userList = document.querySelector('.userList');
+
+    for (var i = 0; i < userArray.length; i++) {
+      var userName = document.createElement('li');
+      userName.className = 'userName';
+      userName.textContent = queryResults[i].display_name;
+      userList.appendChild(userName);
+    }
+
   }
 };
 
 
-communicationWithTwitchAPI.makeCORSRequest();
+
+let runAfterAjax = new Promise((resolve, reject) => {
+  setTimeout(communicationWithTwitchAPI.makeCORSRequest() {
+    resolve("Finished!");
+  }, 100);
+});
+
+runAfterAjax.then(display.users());

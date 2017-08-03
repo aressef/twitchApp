@@ -43,9 +43,9 @@ var communicationWithTwitchAPI = {
         queryResults.push(responseText);
 
         if (queryResults.length == userArray.length) {
-          display.user();
-          // display.bio();
+          display.userInfo();
         }
+
       };
 
       xhr.onerror = function() {
@@ -61,37 +61,46 @@ var communicationWithTwitchAPI = {
 
 
 var display = {
-
-  user: function() {
-    var userList = document.querySelector('.userList');
+  userInfo: function() {
+    userList = document.querySelector('.userList');
     for (var i = 0; i < userArray.length; i++) {
-      var userName = document.createElement('li');
-      userName.className = 'userName';
-      userName.textContent = queryResults[i].display_name;
-      userList.appendChild(userName);
+      userInfoDiv = document.createElement('div');
+      userNameLi = document.createElement('li');
+      userBioLi = document.createElement('li');
+
+      userInfoDiv.className = 'userDiv';
+      userNameLi.className = 'userName';
+      userBioLi.className = 'userBio';
+
+      userNameLi.textContent = queryResults[i].display_name;
+      userBioLi.textContent = queryResults[i].bio;
+
+      if (userBioLi.textContent == '') {
+        userBioLi.textContent = "This user has provided no bio.";
+      }
+
+      userList.appendChild(userInfoDiv);
+      userInfoDiv.appendChild(userNameLi);
+      userNameLi.appendChild(userBioLi);
+
     }
   // },
   // bio: function() {
-  //   var userList = document.querySelector('.userName');
+  //   var userName = document.querySelector('.userName');
   //   for (var i = 0; i < userArray.length; i++) {
-  //     var bio = document.createElement('li');
-  //     bio.className = 'bio';
-  //     bio.textContent = queryResults[i].bio;
-  //     user.appendChild(bio);
+  //     var bioLi = document.createElement('li');
+  //     bioLi.className = 'bio';
+  //     bioLi.textContent = queryResults[i].bio;
+  //     for (var j = 0; j < userArray.length; j++) {
+  //       if (queryResults[i].display_name == userNameLi.textContent) {
+  //         userName.appendChild(bioLi);
+  //       } else {
+  //         i+=j;
+  //       }
+  //     }
+  //
   //   }
   }
 };
 
 communicationWithTwitchAPI.makeCORSRequest();
-// function runAfterAjax() {
-//   var ajaxPromise = new Promise(function(resolve, reject) {
-//     communicationWithTwitchAPI.makeCORSRequest();
-//     resolve('finished');
-//   });
-//
-//   Promise.all(ajaxPromise).then(display.users());
-//
-// };
-//
-//
-// runAfterAjax();

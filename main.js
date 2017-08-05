@@ -4,6 +4,7 @@ var userArray = ["freecodecamp", "ESL_SC2", "BikeMan", "Dazss", "storbeck", "hab
 
 // AJAX Request to Twitch.tv API
 var communicationWithTwitchAPI = {
+
   createCORSRequest: function(method, url) {
     var xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
@@ -28,7 +29,8 @@ var communicationWithTwitchAPI = {
 
     return xhr;
   },
-  makeCORSRequest: function() {
+
+  requestForUserInfo: function() {
     queryResults = [];
     userArray.forEach(function(user) {
       var url = 'https://wind-bow.glitch.me/twitch-api/users/' + user;
@@ -39,10 +41,39 @@ var communicationWithTwitchAPI = {
       }
 
       xhr.onload = function() {
-        responseText = JSON.parse(xhr.responseText);
-        queryResults.push(responseText);
+        userInfoResponse = JSON.parse(xhr.responseText);
+        queryResults.push(userInfoResponse);
 
         if (queryResults.length == userArray.length) {
+          //display.userInfo();
+          communicationWithTwitchAPI.requestForStreamInfo();
+        }
+
+      };
+
+      xhr.onerror = function() {
+       console.log('There was an error!');
+      };
+
+      xhr.send();
+
+    });
+  },
+
+  requestForStreamInfo: function() {
+    userArray.forEach(function(user) {
+      var url = 'https://wind-bow.glitch.me/twitch-api/streams/' + user;
+
+      var xhr = communicationWithTwitchAPI.createCORSRequest('GET', url);
+      if (!xhr) {
+        throw new Error('CORS not supported');
+      }
+
+      xhr.onload = function() {
+        streamInfoResponse = JSON.parse(xhr.responseText);
+        queryResults.push(streamInfoResponse);
+
+        if (queryResults.length == userArray.length * 2) {
           display.userInfo();
         }
 
@@ -57,10 +88,13 @@ var communicationWithTwitchAPI = {
     });
     console.log(queryResults);
   }
+
+
 };
 
 
 var display = {
+
   userInfo: function() {
     userList = document.querySelector('.userList');
     for (var i = 0; i < userArray.length; i++) {
@@ -79,28 +113,16 @@ var display = {
         userBioLi.textContent = "This user has provided no bio.";
       }
 
+      if ()
+
       userList.appendChild(userInfoDiv);
       userInfoDiv.appendChild(userNameLi);
       userNameLi.appendChild(userBioLi);
 
     }
-  // },
-  // bio: function() {
-  //   var userName = document.querySelector('.userName');
-  //   for (var i = 0; i < userArray.length; i++) {
-  //     var bioLi = document.createElement('li');
-  //     bioLi.className = 'bio';
-  //     bioLi.textContent = queryResults[i].bio;
-  //     for (var j = 0; j < userArray.length; j++) {
-  //       if (queryResults[i].display_name == userNameLi.textContent) {
-  //         userName.appendChild(bioLi);
-  //       } else {
-  //         i+=j;
-  //       }
-  //     }
-  //
-  //   }
   }
+
 };
 
-communicationWithTwitchAPI.makeCORSRequest();
+communicationWithTwitchAPI.requestForUserInfo();
+//communicationWithTwitchAPI.requestForStreamInfo();

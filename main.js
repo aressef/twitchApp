@@ -31,7 +31,7 @@ var communicationWithTwitchAPI = {
   },
 
   requestForUserInfo: function() {
-    queryResults = [];
+    userResults = [];
     userArray.forEach(function(user) {
       var url = 'https://wind-bow.glitch.me/twitch-api/users/' + user;
 
@@ -42,10 +42,9 @@ var communicationWithTwitchAPI = {
 
       xhr.onload = function() {
         userInfoResponse = JSON.parse(xhr.responseText);
-        queryResults.push(userInfoResponse);
+        userResults.push(userInfoResponse);
 
-        if (queryResults.length == userArray.length) {
-          //display.userInfo();
+        if (userResults.length == userArray.length) {
           communicationWithTwitchAPI.requestForStreamInfo();
         }
 
@@ -61,6 +60,7 @@ var communicationWithTwitchAPI = {
   },
 
   requestForStreamInfo: function() {
+    streamResults = [];
     userArray.forEach(function(user) {
       var url = 'https://wind-bow.glitch.me/twitch-api/streams/' + user;
 
@@ -71,9 +71,9 @@ var communicationWithTwitchAPI = {
 
       xhr.onload = function() {
         streamInfoResponse = JSON.parse(xhr.responseText);
-        queryResults.push(streamInfoResponse);
+        streamResults.push(streamInfoResponse);
 
-        if (queryResults.length == userArray.length * 2) {
+        if (streamResults.length == userArray.length) {
           display.userInfo();
         }
 
@@ -86,7 +86,8 @@ var communicationWithTwitchAPI = {
       xhr.send();
 
     });
-    console.log(queryResults);
+    console.log(userResults);
+    console.log(streamResults);
   }
 
 
@@ -101,23 +102,38 @@ var display = {
       userInfoDiv = document.createElement('div');
       userNameLi = document.createElement('li');
       userBioLi = document.createElement('li');
+      userOnlineStatusLi = document.createElement('li');
+      userStreamLink = document.createElement('a');
 
       userInfoDiv.className = 'userDiv';
       userNameLi.className = 'userName';
       userBioLi.className = 'userBio';
+      userOnlineStatusLi.className = 'userOnlineStatus';
+      userStreamLink.className = 'userStreamLink';
 
-      userNameLi.textContent = queryResults[i].display_name;
-      userBioLi.textContent = queryResults[i].bio;
+      userNameLi.textContent = userResults[i].display_name;
+      userBioLi.textContent = userResults[i].bio;
 
       if (userBioLi.textContent == '') {
-        userBioLi.textContent = "This user has provided no bio.";
+        userBioLi.textContent = userResults[i].display_name + " user has provided no bio.";
       }
 
-      if ()
+      for (var j = 0; j < userArray.length; j++) {
+        if (userResults[i]._links.self.textContent == streamResults[j]._links.self.textContent) {
+          if (streamResults[j].stream == null) {
+            userOnlineStatusLi.textContent = userResults[i].display_name + ' is currently offline.';
+          } else {
+            userStreamLink.href = streamResults[j].stream.textContent;
+            userStreamLink.textContent = 'here';
+            userOnlineStatusLi.textContent = userResults[i].display_name + ' is currently online! Click ' + userStreamLink + 'to view stream.';
+          }
+        }
+      }
 
       userList.appendChild(userInfoDiv);
       userInfoDiv.appendChild(userNameLi);
       userNameLi.appendChild(userBioLi);
+      userBioLi.appendChild(userOnlineStatusLi);
 
     }
   }
@@ -125,4 +141,3 @@ var display = {
 };
 
 communicationWithTwitchAPI.requestForUserInfo();
-//communicationWithTwitchAPI.requestForStreamInfo();

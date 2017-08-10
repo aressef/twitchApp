@@ -97,15 +97,15 @@ var communicationWithTwitchAPI = {
 var display = {
 
   userInfo: function() {
-    userList = document.querySelector('.userList');
+    userDiv = document.querySelector('.userDiv');
     for (var i = 0; i < userArray.length; i++) {
-      userInfoDiv = document.createElement('div');
+      userList = document.createElement('ul');
       userNameLi = document.createElement('li');
       userBioLi = document.createElement('li');
       userOnlineStatusLi = document.createElement('li');
       userStreamLink = document.createElement('a');
 
-      userInfoDiv.className = 'userDiv';
+      userList.className = 'userList';
       userNameLi.className = 'userName';
       userBioLi.className = 'userBio';
       userOnlineStatusLi.className = 'userOnlineStatus';
@@ -119,21 +119,25 @@ var display = {
       }
 
       for (var j = 0; j < userArray.length; j++) {
-        if (userResults[i]._links.self.textContent == streamResults[j]._links.self.textContent) {
-          if (streamResults[j].stream == null) {
-            userOnlineStatusLi.textContent = userResults[i].display_name + ' is currently offline.';
-          } else {
-            userStreamLink.href = streamResults[j].stream.textContent;
+        if (streamResults[j].stream != null) {
+          if (streamResults[j].stream.channel._id === userResults[i]._id) {
+            userStreamLink.href = streamResults[j].stream.channel.url;
+            userStreamLink.target = "_blank";
             userStreamLink.textContent = 'here';
-            userOnlineStatusLi.textContent = userResults[i].display_name + ' is currently online! Click ' + userStreamLink + 'to view stream.';
+            userOnlineStatusLi.textContent = userResults[i].display_name + ' is currently live! Click ' + userStreamLink + ' to view stream.';
+            // console.log(userStreamLink);
+          }
+          else {
+            userOnlineStatusLi.textContent = userResults[i].display_name + ' is not currently offline.';
           }
         }
+
       }
 
-      userList.appendChild(userInfoDiv);
-      userInfoDiv.appendChild(userNameLi);
-      userNameLi.appendChild(userBioLi);
-      userBioLi.appendChild(userOnlineStatusLi);
+      userDiv.appendChild(userList);
+      userList.appendChild(userNameLi);
+      userList.appendChild(userBioLi);
+      userList.appendChild(userOnlineStatusLi);
 
     }
   }

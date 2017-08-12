@@ -97,7 +97,7 @@ var communicationWithTwitchAPI = {
 var display = {
 
   userInfo: function() {
-    userDiv = document.querySelector('.userDiv');
+    var userDiv = document.querySelector('.userDiv');
     for (var i = 0; i < userArray.length; i++) {
       userList = document.createElement('ul');
       userNameLi = document.createElement('li');
@@ -118,30 +118,55 @@ var display = {
         userBioLi.textContent = userResults[i].display_name + " user has provided no bio.";
       }
 
-      for (var j = 0; j < userArray.length; j++) {
-        if (streamResults[j].stream != null) {
-          if (streamResults[j].stream.channel._id === userResults[i]._id) {
-            userStreamLink.href = streamResults[j].stream.channel.url;
-            userStreamLink.target = "_blank";
-            userStreamLink.textContent = 'here';
-            userOnlineStatusLi.textContent = userResults[i].display_name + ' is currently live! Click ' + userStreamLink + ' to view stream.';
-            // console.log(userStreamLink);
-          }
-          else {
-            userOnlineStatusLi.textContent = userResults[i].display_name + ' is not currently offline.';
-          }
-        }
-
-      }
-
       userDiv.appendChild(userList);
       userList.appendChild(userNameLi);
       userList.appendChild(userBioLi);
       userList.appendChild(userOnlineStatusLi);
 
+      for (var j = 0; j < userArray.length; j++) {
+        if (streamResults[j].stream != null) {
+          if (streamResults[j].stream.channel.display_name === userNameLi.textContent) {
+            userStreamLink.href = streamResults[j].stream.channel.url;
+            userStreamLink.target = "_blank";
+            userStreamLink.textContent = 'here';
+            userOnlineStatusLi.textContent = streamResults[j].stream.channel.display_name + ' is currently live! Click ' + userStreamLink + ' to view stream.'
+          }
+        }
+
+        // Having this as the else statement forthe if statement above was not working ??
+        if (userOnlineStatusLi.textContent === '') {
+          userOnlineStatusLi.textContent = 'Status: Offline';
+        }
+
+      }
     }
+  },
+
+  onlineUsers: function() {
+    var userListLength = document.getElementsByClassName('userList').length;
+
+    for (var i = 0; i < userListLength; i++) {
+      var userOnlineStatusNode = document.querySelector('.userOnlineStatus');
+      var userOnlineStatusTextContent = userOnlineStatusNode.textContent;
+
+      if (userOnlineStatusTextContent.indexOf('offline') !== -1) {
+        var userOnlineStatusParentNode = userOnlineStatusNode.parentNode;
+        console.log(userOnlineStatusParentNode);
+
+        while (userOnlineStatusParentNode.firstChild) {
+          userOnlineStatusParentNode.removeChild(userOnlineStatusParentNode.firstChild);
+        }
+
+      }
+
+    }
+
   }
 
 };
+
+
+
+
 
 communicationWithTwitchAPI.requestForUserInfo();

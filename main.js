@@ -142,16 +142,48 @@ var display = {
     }
   },
 
-  onlineUsers: function() {
-    var userListLength = document.getElementsByClassName('userList').length;
+  allStreamers: function() {
 
-    for (var i = 0; i < userListLength; i++) {
-      var userOnlineStatusNode = document.querySelector('.userOnlineStatus');
+
+  },
+
+  onlineStreamers: function() {
+    // display.userInfo();
+
+    var userLists = document.querySelectorAll('.userList');
+    var userListsArray = Array.from(userLists);
+    console.log(userListsArray);
+
+    for (var i = 0; i < userListsArray.length; i++) {
+      var userOnlineStatusNode = userListsArray[i].lastChild;
       var userOnlineStatusTextContent = userOnlineStatusNode.textContent;
 
-      if (userOnlineStatusTextContent.indexOf('offline') !== -1) {
+      if (userOnlineStatusTextContent.indexOf('Offline') !== -1) {
         var userOnlineStatusParentNode = userOnlineStatusNode.parentNode;
-        console.log(userOnlineStatusParentNode);
+
+        while (userOnlineStatusParentNode.firstChild) {
+          userOnlineStatusParentNode.removeChild(userOnlineStatusParentNode.firstChild);
+        }
+
+      }
+
+    }
+
+  },
+
+  offlineStreamers: function() {
+    // display.userInfo();
+
+    var userLists = document.querySelectorAll('.userList');
+    var userListsArray = Array.from(userLists);
+    console.log(userListsArray);
+
+    for (var i = 0; i < userListsArray.length; i++) {
+      var userOnlineStatusNode = userListsArray[i].lastChild;
+      var userOnlineStatusTextContent = userOnlineStatusNode.textContent;
+
+      if (userOnlineStatusTextContent.indexOf('Offline') === -1) {
+        var userOnlineStatusParentNode = userOnlineStatusNode.parentNode;
 
         while (userOnlineStatusParentNode.firstChild) {
           userOnlineStatusParentNode.removeChild(userOnlineStatusParentNode.firstChild);

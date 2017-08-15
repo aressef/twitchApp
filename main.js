@@ -1,5 +1,6 @@
 // Array of Twitch users
 var userArray = ["freecodecamp", "ESL_SC2", "BikeMan", "Dazss", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
+var userListsArray = [];
 
 
 // AJAX Request to Twitch.tv API
@@ -97,7 +98,8 @@ var communicationWithTwitchAPI = {
 var display = {
 
   userInfo: function() {
-    var userDiv = document.querySelector('.userDiv');
+    userDiv = document.querySelector('.userDiv');
+
     for (var i = 0; i < userArray.length; i++) {
       userList = document.createElement('ul');
       userNameLi = document.createElement('li');
@@ -143,16 +145,29 @@ var display = {
   },
 
   allStreamers: function() {
+    console.log(userListsArray.length);
+    console.log(userArray.length);
 
+    if (userListsArray.length === userArray.length) {
+
+      for (var i = 0; i < userListsArray.length; i++) {
+        userListsArray[i].style.display = "inherit";
+        console.log(hiddenUsers[i]);
+      }
+
+    }
 
   },
 
   onlineStreamers: function() {
-    // display.userInfo();
+
+    // if offlineUsers() has already been executed this displays all Streamers before removing all offline streamers
+    this.allStreamers();
 
     var userLists = document.querySelectorAll('.userList');
-    var userListsArray = Array.from(userLists);
-    console.log(userListsArray);
+
+    userListsArray = Array.from(userLists);
+    hiddenUsers = [];
 
     for (var i = 0; i < userListsArray.length; i++) {
       var userOnlineStatusNode = userListsArray[i].lastChild;
@@ -161,22 +176,23 @@ var display = {
       if (userOnlineStatusTextContent.indexOf('Offline') !== -1) {
         var userOnlineStatusParentNode = userOnlineStatusNode.parentNode;
 
-        while (userOnlineStatusParentNode.firstChild) {
-          userOnlineStatusParentNode.removeChild(userOnlineStatusParentNode.firstChild);
-        }
+        hiddenUsers.push(userOnlineStatusParentNode);
+        userOnlineStatusParentNode.style.display = 'none';
 
       }
-
     }
 
   },
 
   offlineStreamers: function() {
-    // display.userInfo();
+
+    // if onlineUsers() has already been executed this displays all Streamers before removing all online streamers
+    this.allStreamers();
 
     var userLists = document.querySelectorAll('.userList');
-    var userListsArray = Array.from(userLists);
-    console.log(userListsArray);
+
+    userListsArray = Array.from(userLists);
+    hiddenUsers = [];
 
     for (var i = 0; i < userListsArray.length; i++) {
       var userOnlineStatusNode = userListsArray[i].lastChild;
@@ -185,12 +201,10 @@ var display = {
       if (userOnlineStatusTextContent.indexOf('Offline') === -1) {
         var userOnlineStatusParentNode = userOnlineStatusNode.parentNode;
 
-        while (userOnlineStatusParentNode.firstChild) {
-          userOnlineStatusParentNode.removeChild(userOnlineStatusParentNode.firstChild);
-        }
+        hiddenUsers.push(userOnlineStatusParentNode);
+        userOnlineStatusParentNode.style.display = 'none';
 
       }
-
     }
 
   }

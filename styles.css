@@ -5,3 +5,9 @@ body {}
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+
+.userLogo {
+  height: 50px;
+  width: 50px;
+}

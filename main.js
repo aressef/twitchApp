@@ -106,15 +106,23 @@ var display = {
       userBioLi = document.createElement('li');
       userOnlineStatusLi = document.createElement('li');
       userStreamLink = document.createElement('a');
+      userLogoLi = document.createElement('li');
+      userLogo = document.createElement('img');
 
       userList.className = 'userList';
       userNameLi.className = 'userName';
       userBioLi.className = 'userBio';
       userOnlineStatusLi.className = 'userOnlineStatus';
       userStreamLink.className = 'userStreamLink';
+      userLogoLi.className = 'userLogoLi';
+      userLogo.className = 'userLogo';
 
       userNameLi.textContent = userResults[i].display_name;
       userBioLi.textContent = userResults[i].bio;
+
+      // User Logo
+      userLogo.src = userResults[i].logo;
+      userLogo.alt = userResults[i].display_name + ' logo';
 
       if (userBioLi.textContent == '') {
         userBioLi.textContent = userResults[i].display_name + " user has provided no bio.";
@@ -124,6 +132,8 @@ var display = {
       userList.appendChild(userNameLi);
       userList.appendChild(userBioLi);
       userList.appendChild(userOnlineStatusLi);
+      userList.appendChild(userLogoLi);
+      userLogoLi.appendChild(userLogo);
 
       for (var j = 0; j < userArray.length; j++) {
         if (streamResults[j].stream != null) {
@@ -145,14 +155,11 @@ var display = {
   },
 
   allStreamers: function() {
-    console.log(userListsArray.length);
-    console.log(userArray.length);
 
     if (userListsArray.length === userArray.length) {
 
       for (var i = 0; i < userListsArray.length; i++) {
         userListsArray[i].style.display = "inherit";
-        console.log(hiddenUsers[i]);
       }
 
     }
@@ -168,9 +175,10 @@ var display = {
 
     userListsArray = Array.from(userLists);
     hiddenUsers = [];
+    console.log(userListsArray);
 
     for (var i = 0; i < userListsArray.length; i++) {
-      var userOnlineStatusNode = userListsArray[i].lastChild;
+      var userOnlineStatusNode = userListsArray[i].children[2];
       var userOnlineStatusTextContent = userOnlineStatusNode.textContent;
 
       if (userOnlineStatusTextContent.indexOf('Offline') !== -1) {
@@ -195,7 +203,7 @@ var display = {
     hiddenUsers = [];
 
     for (var i = 0; i < userListsArray.length; i++) {
-      var userOnlineStatusNode = userListsArray[i].lastChild;
+      var userOnlineStatusNode = userListsArray[i].children[2];
       var userOnlineStatusTextContent = userOnlineStatusNode.textContent;
 
       if (userOnlineStatusTextContent.indexOf('Offline') === -1) {

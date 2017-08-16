@@ -1,5 +1,5 @@
 // Array of Twitch users
-var userArray = ["freecodecamp", "ESL_SC2", "BikeMan", "Dazss", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
+var userArray = ["freecodecamp", "ESL_SC2", "BikeMan", "Dazss", "Syndicate", "habathcx", "RobotCaleb", "noobs2ninjas", "riotgames", "esl_csgo", "summit1g"];
 var userListsArray = [];
 
 
@@ -58,6 +58,7 @@ var communicationWithTwitchAPI = {
       xhr.send();
 
     });
+
   },
 
   requestForStreamInfo: function() {
@@ -100,6 +101,18 @@ var display = {
   userInfo: function() {
     userDiv = document.querySelector('.userDiv');
 
+    userResults.sort(function(a, b) {
+      var nameA = a.display_name.toUpperCase();
+      var nameB = b.display_name.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    });
+
     for (var i = 0; i < userArray.length; i++) {
       userList = document.createElement('ul');
       userNameLi = document.createElement('li');
@@ -137,20 +150,21 @@ var display = {
 
       for (var j = 0; j < userArray.length; j++) {
         if (streamResults[j].stream != null) {
+
           if (streamResults[j].stream.channel.display_name === userNameLi.textContent) {
             userStreamLink.href = streamResults[j].stream.channel.url;
             userStreamLink.target = "_blank";
-            userStreamLink.textContent = 'here';
-            userOnlineStatusLi.textContent = streamResults[j].stream.channel.display_name + ' is currently live! Click ' + userStreamLink + ' to view stream.'
+            userStreamLink.textContent = streamResults[j].stream.channel.display_name + ' is currently streaming ' + streamResults[j].stream.game + '.';
+            userOnlineStatusLi.appendChild(userStreamLink);
           }
-        }
 
-        // Having this as the else statement forthe if statement above was not working ??
-        if (userOnlineStatusLi.textContent === '') {
-          userOnlineStatusLi.textContent = 'Status: Offline';
         }
-
       }
+
+      if  (userStreamLink.textContent === '') {
+        userOnlineStatusLi.textContent = 'Status: Offline';
+      }
+
     }
   },
 
@@ -172,10 +186,7 @@ var display = {
     this.allStreamers();
 
     var userLists = document.querySelectorAll('.userList');
-
     userListsArray = Array.from(userLists);
-    hiddenUsers = [];
-    console.log(userListsArray);
 
     for (var i = 0; i < userListsArray.length; i++) {
       var userOnlineStatusNode = userListsArray[i].children[2];
@@ -183,10 +194,7 @@ var display = {
 
       if (userOnlineStatusTextContent.indexOf('Offline') !== -1) {
         var userOnlineStatusParentNode = userOnlineStatusNode.parentNode;
-
-        hiddenUsers.push(userOnlineStatusParentNode);
         userOnlineStatusParentNode.style.display = 'none';
-
       }
     }
 
@@ -198,9 +206,7 @@ var display = {
     this.allStreamers();
 
     var userLists = document.querySelectorAll('.userList');
-
     userListsArray = Array.from(userLists);
-    hiddenUsers = [];
 
     for (var i = 0; i < userListsArray.length; i++) {
       var userOnlineStatusNode = userListsArray[i].children[2];
@@ -208,10 +214,7 @@ var display = {
 
       if (userOnlineStatusTextContent.indexOf('Offline') === -1) {
         var userOnlineStatusParentNode = userOnlineStatusNode.parentNode;
-
-        hiddenUsers.push(userOnlineStatusParentNode);
         userOnlineStatusParentNode.style.display = 'none';
-
       }
     }
 

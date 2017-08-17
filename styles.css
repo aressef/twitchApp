@@ -1,13 +1,33 @@
 body {}
 
-
-.userDiv {
+.streamerDiv {
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
+.streamerList {
+  list-style: none;
+}
 
-.userLogo {
+.streamerLogoLi {}
+
+.streamerLogo {
   height: 50px;
   width: 50px;
 }
+
+.streamerName {
+  font-size: 26px;
+}
+
+.streamerOnlineStatus {}
+
+.streamerBio {}
+
+.moreInfoAboutStreamerDiv {}
+
+.moreInfoAboutStreamerUL {}
+
+.streamerViewers {}
+
+.streamerFollowers {}

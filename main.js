@@ -1,6 +1,6 @@
-// Array of Twitch users
-var userArray = ["freecodecamp", "ESL_SC2", "BikeMan", "Dazss", "Syndicate", "habathcx", "RobotCaleb", "noobs2ninjas", "riotgames", "esl_csgo", "summit1g"];
-var userListsArray = [];
+// Array of Twitch streamers
+var streamerArray = ["freecodecamp", "ESL_SC2", "BikeMan", "Dazss", "Syndicate", "habathcx", "RobotCaleb", "noobs2ninjas", "riotgames", "esl_csgo", "summit1g"];
+var streamerListsArray = [];
 
 
 // AJAX Request to Twitch.tv API
@@ -31,10 +31,10 @@ var communicationWithTwitchAPI = {
     return xhr;
   },
 
-  requestForUserInfo: function() {
-    userResults = [];
-    userArray.forEach(function(user) {
-      var url = 'https://wind-bow.glitch.me/twitch-api/users/' + user;
+  requestForstreamerInfo: function() {
+    streamerResults = [];
+    streamerArray.forEach(function(streamer) {
+      var url = 'https://wind-bow.glitch.me/twitch-api/users/' + streamer;
 
       var xhr = communicationWithTwitchAPI.createCORSRequest('GET', url);
       if (!xhr) {
@@ -42,10 +42,10 @@ var communicationWithTwitchAPI = {
       }
 
       xhr.onload = function() {
-        userInfoResponse = JSON.parse(xhr.responseText);
-        userResults.push(userInfoResponse);
+        streamerInfoResponse = JSON.parse(xhr.responseText);
+        streamerResults.push(streamerInfoResponse);
 
-        if (userResults.length == userArray.length) {
+        if (streamerResults.length == streamerArray.length) {
           communicationWithTwitchAPI.requestForStreamInfo();
         }
 
@@ -63,8 +63,8 @@ var communicationWithTwitchAPI = {
 
   requestForStreamInfo: function() {
     streamResults = [];
-    userArray.forEach(function(user) {
-      var url = 'https://wind-bow.glitch.me/twitch-api/streams/' + user;
+    streamerArray.forEach(function(streamer) {
+      var url = 'https://wind-bow.glitch.me/twitch-api/streams/' + streamer;
 
       var xhr = communicationWithTwitchAPI.createCORSRequest('GET', url);
       if (!xhr) {
@@ -75,8 +75,8 @@ var communicationWithTwitchAPI = {
         streamInfoResponse = JSON.parse(xhr.responseText);
         streamResults.push(streamInfoResponse);
 
-        if (streamResults.length == userArray.length) {
-          display.userInfo();
+        if (streamResults.length == streamerArray.length) {
+          display.streamerInfo();
         }
 
       };
@@ -88,7 +88,7 @@ var communicationWithTwitchAPI = {
       xhr.send();
 
     });
-    console.log(userResults);
+    console.log(streamerResults);
     console.log(streamResults);
   }
 
@@ -98,10 +98,10 @@ var communicationWithTwitchAPI = {
 
 var display = {
 
-  userInfo: function() {
-    userDiv = document.querySelector('.userDiv');
+  streamerInfo: function() {
+    streamerDiv = document.querySelector('.streamerDiv');
 
-    userResults.sort(function(a, b) {
+    streamerResults.sort(function(a, b) {
       var nameA = a.display_name.toUpperCase();
       var nameB = b.display_name.toUpperCase();
       if (nameA < nameB) {
@@ -113,56 +113,76 @@ var display = {
       return 0;
     });
 
-    for (var i = 0; i < userArray.length; i++) {
-      userList = document.createElement('ul');
-      userNameLi = document.createElement('li');
-      userBioLi = document.createElement('li');
-      userOnlineStatusLi = document.createElement('li');
-      userStreamLink = document.createElement('a');
-      userLogoLi = document.createElement('li');
-      userLogo = document.createElement('img');
+    for (var i = 0; i < streamerArray.length; i++) {
+      streamerList = document.createElement('ul');
+      streamerLogoLi = document.createElement('li');
+      streamerLogo = document.createElement('img');
+      streamerNameLi = document.createElement('li');
+      streamerOnlineStatusLi = document.createElement('li');
+      streamerStreamLink = document.createElement('a');
+      moreInfoAboutStreamersDiv = document.createElement('div');
+      moreInfoAboutStreamersUL = document.createElement('ul');
+      streamerBioLi = document.createElement('li');
+      streamerFollowers = document.createElement('li');
+      streamerViewers = document.createElement('li');
 
-      userList.className = 'userList';
-      userNameLi.className = 'userName';
-      userBioLi.className = 'userBio';
-      userOnlineStatusLi.className = 'userOnlineStatus';
-      userStreamLink.className = 'userStreamLink';
-      userLogoLi.className = 'userLogoLi';
-      userLogo.className = 'userLogo';
+      streamerList.className = 'streamerList';
+      streamerLogoLi.className = 'streamerLogoLi';
+      streamerLogo.className = 'streamerLogo';
+      streamerNameLi.className = 'streamerName';
+      streamerOnlineStatusLi.className = 'streamerOnlineStatus';
+      streamerStreamLink.className = 'streamerStreamLink';
+      moreInfoAboutStreamersDiv.className = 'moreInfoAboutStreamersDiv';
+      moreInfoAboutStreamersUL.className = 'moreInfoAboutStreamersUL';
+      streamerBioLi.className = 'streamerBio';
+      streamerFollowers.className = 'streamerFollowers';
+      streamerViewers.className = 'streamerViewers';
 
-      userNameLi.textContent = userResults[i].display_name;
-      userBioLi.textContent = userResults[i].bio;
+      streamerNameLi.textContent = streamerResults[i].display_name;
+      streamerBioLi.textContent = streamerResults[i].bio;
 
-      // User Logo
-      userLogo.src = userResults[i].logo;
-      userLogo.alt = userResults[i].display_name + ' logo';
+      // streamer Logo
+      streamerLogo.src = streamerResults[i].logo;
+      streamerLogo.alt = streamerResults[i].display_name + ' logo';
 
-      if (userBioLi.textContent == '') {
-        userBioLi.textContent = userResults[i].display_name + " user has provided no bio.";
+      if (streamerBioLi.textContent == '') {
+        streamerBioLi.textContent = streamerResults[i].display_name + " streamer has provided no bio.";
       }
 
-      userDiv.appendChild(userList);
-      userList.appendChild(userNameLi);
-      userList.appendChild(userBioLi);
-      userList.appendChild(userOnlineStatusLi);
-      userList.appendChild(userLogoLi);
-      userLogoLi.appendChild(userLogo);
+      streamerDiv.appendChild(streamerList);
+      streamerList.appendChild(streamerLogoLi);
+      streamerLogoLi.appendChild(streamerLogo);
+      streamerList.appendChild(streamerNameLi);
+      streamerList.appendChild(streamerOnlineStatusLi);
+      streamerList.appendChild(streamerBioLi);
+      streamerList.appendChild(moreInfoAboutStreamersDiv);
+      moreInfoAboutStreamersDiv.appendChild(moreInfoAboutStreamersUL);
 
-      for (var j = 0; j < userArray.length; j++) {
+
+      for (var j = 0; j < streamerArray.length; j++) {
         if (streamResults[j].stream != null) {
 
-          if (streamResults[j].stream.channel.display_name === userNameLi.textContent) {
-            userStreamLink.href = streamResults[j].stream.channel.url;
-            userStreamLink.target = "_blank";
-            userStreamLink.textContent = streamResults[j].stream.channel.display_name + ' is currently streaming ' + streamResults[j].stream.game + '.';
-            userOnlineStatusLi.appendChild(userStreamLink);
+          if (streamResults[j].stream.channel.display_name === streamerNameLi.textContent) {
+            // Adding Stream Link
+            streamerStreamLink.href = streamResults[j].stream.channel.url;
+            streamerStreamLink.target = "_blank";
+            streamerStreamLink.textContent = streamResults[j].stream.channel.display_name + ' is currently streaming ' + streamResults[j].stream.game + '.';
+            streamerOnlineStatusLi.appendChild(streamerStreamLink);
+
+            // Adding Stream Viewers
+            streamerViewers.textContent = streamResults[j].stream.viewers;
+            moreInfoAboutStreamersUL.appendChild(streamerViewers);
+
+            //Adding Stream followers
+            streamerFollowers.textContent = streamResults[j].stream.channel.followers;
+            moreInfoAboutStreamersUL.appendChild(streamerFollowers);
           }
 
         }
       }
 
-      if  (userStreamLink.textContent === '') {
-        userOnlineStatusLi.textContent = 'Status: Offline';
+      if  (streamerStreamLink.textContent === '') {
+        streamerOnlineStatusLi.textContent = 'Status: Offline';
       }
 
     }
@@ -170,10 +190,10 @@ var display = {
 
   allStreamers: function() {
 
-    if (userListsArray.length === userArray.length) {
+    if (streamerListsArray.length === streamerArray.length) {
 
-      for (var i = 0; i < userListsArray.length; i++) {
-        userListsArray[i].style.display = "inherit";
+      for (var i = 0; i < streamerListsArray.length; i++) {
+        streamerListsArray[i].style.display = "inherit";
       }
 
     }
@@ -182,19 +202,19 @@ var display = {
 
   onlineStreamers: function() {
 
-    // if offlineUsers() has already been executed this displays all Streamers before removing all offline streamers
+    // if offlinestreamers() has already been executed this displays all Streamers before removing all offline streamers
     this.allStreamers();
 
-    var userLists = document.querySelectorAll('.userList');
-    userListsArray = Array.from(userLists);
+    var streamerLists = document.querySelectorAll('.streamerList');
+    streamerListsArray = Array.from(streamerLists);
 
-    for (var i = 0; i < userListsArray.length; i++) {
-      var userOnlineStatusNode = userListsArray[i].children[2];
-      var userOnlineStatusTextContent = userOnlineStatusNode.textContent;
+    for (var i = 0; i < streamerListsArray.length; i++) {
+      var streamerOnlineStatusNode = streamerListsArray[i].children[2];
+      var streamerOnlineStatusTextContent = streamerOnlineStatusNode.textContent;
 
-      if (userOnlineStatusTextContent.indexOf('Offline') !== -1) {
-        var userOnlineStatusParentNode = userOnlineStatusNode.parentNode;
-        userOnlineStatusParentNode.style.display = 'none';
+      if (streamerOnlineStatusTextContent.indexOf('Offline') !== -1) {
+        var streamerOnlineStatusParentNode = streamerOnlineStatusNode.parentNode;
+        streamerOnlineStatusParentNode.style.display = 'none';
       }
     }
 
@@ -202,19 +222,19 @@ var display = {
 
   offlineStreamers: function() {
 
-    // if onlineUsers() has already been executed this displays all Streamers before removing all online streamers
+    // if onlinestreamers() has already been executed this displays all Streamers before removing all online streamers
     this.allStreamers();
 
-    var userLists = document.querySelectorAll('.userList');
-    userListsArray = Array.from(userLists);
+    var streamerLists = document.querySelectorAll('.streamerList');
+    streamerListsArray = Array.from(streamerLists);
 
-    for (var i = 0; i < userListsArray.length; i++) {
-      var userOnlineStatusNode = userListsArray[i].children[2];
-      var userOnlineStatusTextContent = userOnlineStatusNode.textContent;
+    for (var i = 0; i < streamerListsArray.length; i++) {
+      var streamerOnlineStatusNode = streamerListsArray[i].children[2];
+      var streamerOnlineStatusTextContent = streamerOnlineStatusNode.textContent;
 
-      if (userOnlineStatusTextContent.indexOf('Offline') === -1) {
-        var userOnlineStatusParentNode = userOnlineStatusNode.parentNode;
-        userOnlineStatusParentNode.style.display = 'none';
+      if (streamerOnlineStatusTextContent.indexOf('Offline') === -1) {
+        var streamerOnlineStatusParentNode = streamerOnlineStatusNode.parentNode;
+        streamerOnlineStatusParentNode.style.display = 'none';
       }
     }
 
@@ -226,4 +246,4 @@ var display = {
 
 
 
-communicationWithTwitchAPI.requestForUserInfo();
+communicationWithTwitchAPI.requestForstreamerInfo();

@@ -77,6 +77,7 @@ var communicationWithTwitchAPI = {
 
         if (streamResults.length == streamerArray.length) {
           display.streamerInfo();
+          display.moreInfo();
         }
 
       };
@@ -120,6 +121,7 @@ var display = {
       streamerNameLi = document.createElement('li');
       streamerOnlineStatusLi = document.createElement('li');
       streamerStreamLink = document.createElement('a');
+      moreInfoButton = document.createElement('button');
       moreInfoAboutStreamersDiv = document.createElement('div');
       moreInfoAboutStreamersUL = document.createElement('ul');
       streamerBioLi = document.createElement('li');
@@ -132,6 +134,7 @@ var display = {
       streamerNameLi.className = 'streamerName';
       streamerOnlineStatusLi.className = 'streamerOnlineStatus';
       streamerStreamLink.className = 'streamerStreamLink';
+      moreInfoButton.className = 'moreInfoButton';
       moreInfoAboutStreamersDiv.className = 'moreInfoAboutStreamersDiv';
       moreInfoAboutStreamersUL.className = 'moreInfoAboutStreamersUL';
       streamerBioLi.className = 'streamerBio';
@@ -140,6 +143,10 @@ var display = {
 
       streamerNameLi.textContent = streamerResults[i].display_name;
       streamerBioLi.textContent = streamerResults[i].bio;
+
+      // moreInfoButton
+      // moreInfoButton.addEventListener('click', this.moreInfo, false);
+      moreInfoButton.textContent = 'More Info';
 
       // streamer Logo
       streamerLogo.src = streamerResults[i].logo;
@@ -154,9 +161,10 @@ var display = {
       streamerLogoLi.appendChild(streamerLogo);
       streamerList.appendChild(streamerNameLi);
       streamerList.appendChild(streamerOnlineStatusLi);
-      streamerList.appendChild(streamerBioLi);
+      streamerList.appendChild(moreInfoButton);
       streamerList.appendChild(moreInfoAboutStreamersDiv);
       moreInfoAboutStreamersDiv.appendChild(moreInfoAboutStreamersUL);
+      moreInfoAboutStreamersUL.appendChild(streamerBioLi);
 
 
       for (var j = 0; j < streamerArray.length; j++) {
@@ -238,12 +246,20 @@ var display = {
       }
     }
 
+  },
+
+  moreInfo: function() {
+    var moreInfoButtons = document.getElementsByClassName('moreInfoButton');
+
+    for (var i = 0; i < moreInfoButtons.length; i++) {
+      moreInfoButtons[i].addEventListener('click', function() {
+        this.nextSibling.classList.toggle('hidden');
+      });
+    }
+
   }
 
 };
-
-
-
 
 
 communicationWithTwitchAPI.requestForstreamerInfo();

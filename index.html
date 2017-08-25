@@ -5,15 +5,19 @@
 
 
   <!-- CSS -->
+  <link href="reset.css" rel="stylesheet" type="text/css"  />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="styles.css" rel="stylesheet" type="text/css"  />
 </header>
 
 <body>
-  <h1>twitchApp</h1>
+  <h1 class="twitchTitle">twitchApp</h1>
 
-  <button class="allstreamers" onclick="display.allStreamers();">All Streamers</button>
-  <button class="onlinestreamers" onclick="display.onlineStreamers();">Online Streamers</button>
-  <button class="offlinestreamers" onclick="display.offlineStreamers();">Offline Streamers</button>
+  <div class=filterButtons>
+    <button class="allStreamers" onclick="display.allStreamers();">All Streamers</button>
+    <button class="onlineStreamers" onclick="display.onlineStreamers();">Online Streamers</button>
+    <button class="offlineStreamers" onclick="display.offlineStreamers();">Offline Streamers</button>
+  </div>
 
   <div class="streamerDiv"></div>
 

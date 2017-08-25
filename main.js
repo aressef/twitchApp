@@ -136,6 +136,7 @@ var display = {
       streamerStreamLink.className = 'streamerStreamLink';
       moreInfoButton.className = 'moreInfoButton';
       moreInfoAboutStreamersDiv.className = 'moreInfoAboutStreamersDiv';
+      moreInfoAboutStreamersDiv.className = 'moreInfoHidden';
       moreInfoAboutStreamersUL.className = 'moreInfoAboutStreamersUL';
       streamerBioLi.className = 'streamerBio';
       streamerFollowers.className = 'streamerFollowers';
@@ -146,14 +147,18 @@ var display = {
 
       // moreInfoButton
       // moreInfoButton.addEventListener('click', this.moreInfo, false);
-      moreInfoButton.textContent = 'More Info';
+      keyArrowDown = document.createElement('i');
+      keyArrowDown.className = 'material-icons';
+      keyArrowDown.textContent = 'keyboard_arrow_down';
+      moreInfoButton.textContent = 'More ' + keyArrowDown;
+      // <i class="material-icons">keyboard_arrow_down</i>;
 
       // streamer Logo
       streamerLogo.src = streamerResults[i].logo;
       streamerLogo.alt = streamerResults[i].display_name + ' logo';
 
       if (streamerBioLi.textContent == '') {
-        streamerBioLi.textContent = streamerResults[i].display_name + " streamer has provided no bio.";
+        streamerBioLi.textContent = streamerResults[i].display_name + " has provided no bio.";
       }
 
       streamerDiv.appendChild(streamerList);
@@ -174,7 +179,7 @@ var display = {
             // Adding Stream Link
             streamerStreamLink.href = streamResults[j].stream.channel.url;
             streamerStreamLink.target = "_blank";
-            streamerStreamLink.textContent = streamResults[j].stream.channel.display_name + ' is currently streaming ' + streamResults[j].stream.game + '.';
+            streamerStreamLink.textContent = 'Streaming ' + streamResults[j].stream.game + '.';
             streamerOnlineStatusLi.appendChild(streamerStreamLink);
 
             // Adding Stream Viewers
@@ -253,7 +258,7 @@ var display = {
 
     for (var i = 0; i < moreInfoButtons.length; i++) {
       moreInfoButtons[i].addEventListener('click', function() {
-        this.nextSibling.classList.toggle('hidden');
+        this.nextSibling.classList.toggle('moreInfoHidden');
       });
     }
 

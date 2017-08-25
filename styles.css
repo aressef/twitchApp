@@ -1,36 +1,83 @@
-body {}
+body {
+  margin: 5%;
+}
 
-.streamerDiv {
-  margin-top: 20px;
+.twitchTitle {
+  font-size: 50px;
+  text-align: center;
   margin-bottom: 20px;
 }
 
+.filterButtons {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.allStreamers, .onlineStreamers, .offlineStreamers {
+  font-size: 20px;
+  display: inline-block;
+}
+
+.streamerDiv {
+
+}
+
 .streamerList {
+  display: grid;
+
+  grid-template:
+    [row1-start] "logo displayName" auto [row1-end]
+    [row2-start] "logo onlineStatus" auto [row2-end]
+    [row3-start] "logo moreInfo" auto [row3-end]
+    [row4-start] "bio bio" auto [row4-end]
+    / 35% 65%;
+
+
   list-style: none;
 }
 
-.streamerLogoLi {}
+.streamerLogoLi {
+  grid-area: logo;
+}
 
 .streamerLogo {
-  height: 50px;
-  width: 50px;
+  height: 100%;
+  width: 100%;
 }
 
 .streamerName {
-  font-size: 26px;
+  grid-area: displayName;
+  font-size: 35px;
+
 }
 
-.streamerOnlineStatus {}
+.streamerOnlineStatus {
+  grid-area: onlineStatus;
+  font-size: 25px;
+}
 
-.streamerBio {}
+.moreInfoButton {
 
-.moreInfoAboutStreamerDiv {}
+}
 
-.hidden {
+.moreInfoAboutStreamerDiv {
+  grid-area: moreInfo;
+  display: none;
+  border-color: red;
+}
+
+.moreInfoHidden {
   display: none;
 }
 
-.moreInfoAboutStreamerUL {}
+.moreInfoAboutStreamerUL {
+}
+
+.streamerBio {
+  grid-area: bio;
+  font-size: 20px;
+}
 
 .streamerViewers {}
 

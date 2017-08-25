@@ -206,7 +206,7 @@ var display = {
     if (streamerListsArray.length === streamerArray.length) {
 
       for (var i = 0; i < streamerListsArray.length; i++) {
-        streamerListsArray[i].style.display = "inherit";
+        streamerListsArray[i].style.display = "grid";
       }
 
     }

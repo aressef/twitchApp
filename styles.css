@@ -19,22 +19,20 @@ body {
   display: inline-block;
 }
 
-.streamerDiv {
-
-}
+.streamerDiv {}
 
 .streamerList {
   display: grid;
-
+  list-style: none;
   grid-template:
     [row1-start] "logo displayName" auto [row1-end]
     [row2-start] "logo onlineStatus" auto [row2-end]
-    [row3-start] "logo moreInfo" auto [row3-end]
-    [row4-start] "bio bio" auto [row4-end]
-    / 35% 65%;
+    [row3-start] "logo moreInfoButton" auto [row3-end]
+    [row4-start] "moreInfo moreInfo" auto [row4-end]
+    / 35% auto;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
 
-
-  list-style: none;
 }
 
 .streamerLogoLi {
@@ -49,7 +47,6 @@ body {
 .streamerName {
   grid-area: displayName;
   font-size: 35px;
-
 }
 
 .streamerOnlineStatus {
@@ -58,13 +55,16 @@ body {
 }
 
 .moreInfoButton {
-
+  grid-area: moreInfoButton;
+  display: flex;
+  align-items: center;
 }
 
-.moreInfoAboutStreamerDiv {
+.moreInfoAboutStreamersDiv {
   grid-area: moreInfo;
-  display: none;
-  border-color: red;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 10px;
 }
 
 .moreInfoHidden {
@@ -72,6 +72,7 @@ body {
 }
 
 .moreInfoAboutStreamerUL {
+  width: 337px;
 }
 
 .streamerBio {

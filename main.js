@@ -120,8 +120,9 @@ var display = {
       streamerLogo = document.createElement('img');
       streamerNameLi = document.createElement('li');
       streamerOnlineStatusLi = document.createElement('li');
-      streamerStreamLink = document.createElement('a');
-      moreInfoButton = document.createElement('button');
+      streamerLinkForStatus = document.createElement('a');
+      streamerLinkForLogo = document.createElement('a');
+      moreInfoButton = document.createElement('div');
       moreInfoAboutStreamersDiv = document.createElement('div');
       moreInfoAboutStreamersUL = document.createElement('ul');
       streamerBioLi = document.createElement('li');
@@ -133,10 +134,10 @@ var display = {
       streamerLogo.className = 'streamerLogo';
       streamerNameLi.className = 'streamerName';
       streamerOnlineStatusLi.className = 'streamerOnlineStatus';
-      streamerStreamLink.className = 'streamerStreamLink';
+      streamerLinkForStatus.className = 'streamerLinkForStatus';
       moreInfoButton.className = 'moreInfoButton';
       moreInfoAboutStreamersDiv.className = 'moreInfoAboutStreamersDiv';
-      moreInfoAboutStreamersDiv.className = 'moreInfoHidden';
+      moreInfoAboutStreamersDiv.className += ' moreInfoHidden';
       moreInfoAboutStreamersUL.className = 'moreInfoAboutStreamersUL';
       streamerBioLi.className = 'streamerBio';
       streamerFollowers.className = 'streamerFollowers';
@@ -146,12 +147,11 @@ var display = {
       streamerBioLi.textContent = streamerResults[i].bio;
 
       // moreInfoButton
-      // moreInfoButton.addEventListener('click', this.moreInfo, false);
       keyArrowDown = document.createElement('i');
       keyArrowDown.className = 'material-icons';
       keyArrowDown.textContent = 'keyboard_arrow_down';
-      moreInfoButton.textContent = 'More ' + keyArrowDown;
-      // <i class="material-icons">keyboard_arrow_down</i>;
+      moreInfoButton.textContent = 'More ';
+      moreInfoButton.appendChild(keyArrowDown);
 
       // streamer Logo
       streamerLogo.src = streamerResults[i].logo;
@@ -176,25 +176,30 @@ var display = {
         if (streamResults[j].stream != null) {
 
           if (streamResults[j].stream.channel.display_name === streamerNameLi.textContent) {
-            // Adding Stream Link
-            streamerStreamLink.href = streamResults[j].stream.channel.url;
-            streamerStreamLink.target = "_blank";
-            streamerStreamLink.textContent = 'Streaming ' + streamResults[j].stream.game + '.';
-            streamerOnlineStatusLi.appendChild(streamerStreamLink);
+            // Adding Stream Link to Status
+            streamerLinkForStatus.href = streamResults[j].stream.channel.url;
+            streamerLinkForStatus.target = "_blank";
+            streamerLinkForStatus.textContent = 'Streaming ' + streamResults[j].stream.game + '.';
+            streamerOnlineStatusLi.appendChild(streamerLinkForStatus);
+
+            //Adding Stream Link to Logo
+            streamerLinkForLogo.href = streamResults[j].stream.channel.url;
+            streamerLinkForLogo.target = "_blank";
+            streamerLogoLi.appendChild(streamerLinkForLogo);
 
             // Adding Stream Viewers
-            streamerViewers.textContent = streamResults[j].stream.viewers;
+            streamerViewers.textContent = 'Viewers: ' +  streamResults[j].stream.viewers;
             moreInfoAboutStreamersUL.appendChild(streamerViewers);
 
             //Adding Stream followers
-            streamerFollowers.textContent = streamResults[j].stream.channel.followers;
+            streamerFollowers.textContent = 'Followers: ' +  streamResults[j].stream.channel.followers;
             moreInfoAboutStreamersUL.appendChild(streamerFollowers);
           }
 
         }
       }
 
-      if  (streamerStreamLink.textContent === '') {
+      if  (streamerLinkForStatus.textContent === '') {
         streamerOnlineStatusLi.textContent = 'Status: Offline';
       }
 

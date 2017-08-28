@@ -80,17 +80,8 @@ body {
   margin-bottom: 10px;
 }
 
-.slideup {
+.moreInfoSlideUp, .moreInfoSlideDown {
   max-height: 0;
-  overflow-y: hidden;
-  -webkit-transition: max-height 0.5s ease-in-out;
-  -moz-transition: max-height 0.5s ease-in-out;
-  -o-transition: max-height 0.5s ease-in-out;
-  transition: max-height 3.5s ease-in-out;
-}
-
-.slidedown {
-  max-height: 150px;
   overflow-y: hidden;
   -webkit-transition: max-height 0.5s ease-in-out;
   -moz-transition: max-height 0.5s ease-in-out;
@@ -98,8 +89,8 @@ body {
   transition: max-height 0.5s ease-in-out;
 }
 
-.moreInfoHidden {
-  display: none;
+.moreInfoSlideDown {
+  max-height: 150px;
 }
 
 .moreInfoAboutStreamerUL {

@@ -77,7 +77,7 @@ var communicationWithTwitchAPI = {
 
         if (streamResults.length == streamerArray.length) {
           display.streamerInfo();
-          display.moreInfo();
+          display.moreInfoSlider();
         }
 
       };
@@ -137,8 +137,7 @@ var display = {
       streamerLinkForStatus.className = 'streamerLinkForStatus';
       moreInfoButton.className = 'moreInfoButton';
       moreInfoAboutStreamersDiv.className = 'moreInfoAboutStreamersDiv';
-      moreInfoAboutStreamersDiv.className += ' moreInfoHidden';
-      moreInfoAboutStreamersDiv.className += ' slideup';
+      moreInfoAboutStreamersDiv.className += ' moreInfoSlideUp';
       moreInfoAboutStreamersUL.className = 'moreInfoAboutStreamersUL';
       streamerBioLi.className = 'streamerBio';
       streamerFollowers.className = 'streamerFollowers';
@@ -259,14 +258,14 @@ var display = {
 
   },
 
-  moreInfo: function() {
+  moreInfoSlider: function() {
     var moreInfoButtons = document.getElementsByClassName('moreInfoButton');
 
     for (var i = 0; i < moreInfoButtons.length; i++) {
       moreInfoButtons[i].addEventListener('click', function() {
-        this.nextSibling.classList.toggle('moreInfoHidden');
-        this.nextSibling.classList.toggle('slidedown');
-        this.nextSibling.classList.toggle('slideup');
+
+        this.nextSibling.classList.toggle('moreInfoSlideDown');
+        this.nextSibling.classList.toggle('moreInfoSlideUp');
       });
     }
 

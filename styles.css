@@ -1,10 +1,19 @@
 body {
-  margin: 5%;
+  /*overflow: hidden;*/
+}
+
+.menu {
+  overflow:hidden;
+  position: fixed;
+  top: 0;
+  background-color: #fff;
+  width: 100%;
 }
 
 .twitchTitle {
   font-size: 50px;
   text-align: center;
+  margin-top: 5%;
   margin-bottom: 20px;
 }
 
@@ -19,7 +28,11 @@ body {
   display: inline-block;
 }
 
-.streamerDiv {}
+.streamerDiv {
+  margin-top: 150px;
+  margin-left: 2%;
+  margin-right: 2%;
+}
 
 .streamerList {
   display: grid;
@@ -51,7 +64,7 @@ body {
 
 .streamerOnlineStatus {
   grid-area: onlineStatus;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .moreInfoButton {
@@ -67,6 +80,24 @@ body {
   margin-bottom: 10px;
 }
 
+.slideup {
+  max-height: 0;
+  overflow-y: hidden;
+  -webkit-transition: max-height 0.5s ease-in-out;
+  -moz-transition: max-height 0.5s ease-in-out;
+  -o-transition: max-height 0.5s ease-in-out;
+  transition: max-height 3.5s ease-in-out;
+}
+
+.slidedown {
+  max-height: 150px;
+  overflow-y: hidden;
+  -webkit-transition: max-height 0.5s ease-in-out;
+  -moz-transition: max-height 0.5s ease-in-out;
+  -o-transition: max-height 0.5s ease-in-out;
+  transition: max-height 0.5s ease-in-out;
+}
+
 .moreInfoHidden {
   display: none;
 }
@@ -77,7 +108,7 @@ body {
 
 .streamerBio {
   grid-area: bio;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .streamerViewers {}

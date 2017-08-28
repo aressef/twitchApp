@@ -138,6 +138,7 @@ var display = {
       moreInfoButton.className = 'moreInfoButton';
       moreInfoAboutStreamersDiv.className = 'moreInfoAboutStreamersDiv';
       moreInfoAboutStreamersDiv.className += ' moreInfoHidden';
+      moreInfoAboutStreamersDiv.className += ' slideup';
       moreInfoAboutStreamersUL.className = 'moreInfoAboutStreamersUL';
       streamerBioLi.className = 'streamerBio';
       streamerFollowers.className = 'streamerFollowers';
@@ -264,6 +265,8 @@ var display = {
     for (var i = 0; i < moreInfoButtons.length; i++) {
       moreInfoButtons[i].addEventListener('click', function() {
         this.nextSibling.classList.toggle('moreInfoHidden');
+        this.nextSibling.classList.toggle('slidedown');
+        this.nextSibling.classList.toggle('slideup');
       });
     }
 

@@ -120,12 +120,13 @@ var display = {
       streamerLogo = document.createElement('img');
       streamerNameLi = document.createElement('li');
       streamerOnlineStatusLi = document.createElement('li');
-      streamerLinkForStatus = document.createElement('a');
+      streamerStatus = document.createElement('a');
       streamerLinkForLogo = document.createElement('a');
       moreInfoButton = document.createElement('div');
       moreInfoAboutStreamersDiv = document.createElement('div');
       moreInfoAboutStreamersUL = document.createElement('ul');
       streamerBioLi = document.createElement('li');
+      streamerGameBeingStreamed = document.createElement('li');
       streamerFollowers = document.createElement('li');
       streamerViewers = document.createElement('li');
 
@@ -134,24 +135,35 @@ var display = {
       streamerLogo.className = 'streamerLogo';
       streamerNameLi.className = 'streamerName';
       streamerOnlineStatusLi.className = 'streamerOnlineStatus';
-      streamerLinkForStatus.className = 'streamerLinkForStatus';
+      streamerStatus.className = 'streamerStatus';
       moreInfoButton.className = 'moreInfoButton';
       moreInfoAboutStreamersDiv.className = 'moreInfoAboutStreamersDiv';
       moreInfoAboutStreamersDiv.className += ' moreInfoSlideUp';
       moreInfoAboutStreamersUL.className = 'moreInfoAboutStreamersUL';
       streamerBioLi.className = 'streamerBio';
+      streamerGameBeingStreamed.className = 'streamerGameBeingStreamed';
       streamerFollowers.className = 'streamerFollowers';
       streamerViewers.className = 'streamerViewers';
 
       streamerNameLi.textContent = streamerResults[i].display_name;
-      streamerBioLi.textContent = streamerResults[i].bio;
+      streamerBioLi.textContent = 'Bio: ' + streamerResults[i].bio;
 
       // moreInfoButton
       keyArrowDown = document.createElement('i');
       keyArrowDown.className = 'material-icons';
       keyArrowDown.textContent = 'keyboard_arrow_down';
-      moreInfoButton.textContent = 'More ';
+      moreInfoButton.textContent = 'More';
       moreInfoButton.appendChild(keyArrowDown);
+
+      // statusOnline
+      statusOnlineIcon = document.createElement('i');
+      statusOnlineIcon.className = 'material-icons';
+      statusOnlineIcon.textContent = 'play_circle_outline';
+
+      // statusOffline
+      statusOfflineIcon = document.createElement('i');
+      statusOfflineIcon.className = 'material-icons';
+      statusOfflineIcon.textContent = 'not_interested';
 
       // streamer Logo
       streamerLogo.src = streamerResults[i].logo;
@@ -177,21 +189,24 @@ var display = {
 
           if (streamResults[j].stream.channel.display_name === streamerNameLi.textContent) {
             // Adding Stream Link to Status
-            streamerLinkForStatus.href = streamResults[j].stream.channel.url;
-            streamerLinkForStatus.target = "_blank";
-            streamerLinkForStatus.textContent = 'Streaming ' + streamResults[j].stream.game + '.';
-            streamerOnlineStatusLi.appendChild(streamerLinkForStatus);
+            streamerStatus.textContent = 'Currently Streaming!';
+            streamerOnlineStatusLi.appendChild(streamerStatus);
+            streamerOnlineStatusLi.insertBefore(statusOnlineIcon, streamerOnlineStatusLi.childNodes[0]);
 
             //Adding Stream Link to Logo
             streamerLinkForLogo.href = streamResults[j].stream.channel.url;
             streamerLinkForLogo.target = "_blank";
             streamerLogoLi.appendChild(streamerLinkForLogo);
 
-            // Adding Stream Viewers
+            // Adding Game being Streamed to More Info Section
+            streamerGameBeingStreamed.textContent = 'Steaming: ' +  streamResults[j].stream.game;
+            moreInfoAboutStreamersUL.appendChild(streamerGameBeingStreamed);
+
+            // Adding Stream Viewers to More Info Section
             streamerViewers.textContent = 'Viewers: ' +  streamResults[j].stream.viewers;
             moreInfoAboutStreamersUL.appendChild(streamerViewers);
 
-            //Adding Stream followers
+            //Adding Stream followers to More Info Section
             streamerFollowers.textContent = 'Followers: ' +  streamResults[j].stream.channel.followers;
             moreInfoAboutStreamersUL.appendChild(streamerFollowers);
           }
@@ -199,8 +214,11 @@ var display = {
         }
       }
 
-      if  (streamerLinkForStatus.textContent === '') {
-        streamerOnlineStatusLi.textContent = 'Status: Offline';
+      if  (streamerStatus.textContent === '') {
+        statusOfflineText = document.createElement('p');
+        statusOfflineText.textContent = 'Offline';
+        streamerOnlineStatusLi.appendChild(statusOfflineText);
+        streamerOnlineStatusLi.insertBefore(statusOfflineIcon, streamerOnlineStatusLi.childNodes[0]);
       }
 
     }

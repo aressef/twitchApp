@@ -1,5 +1,5 @@
 // Array of Twitch streamers
-var streamerArray = ["freecodecamp", "ESL_SC2", "BikeMan", "Dazss", "Syndicate", "habathcx", "RobotCaleb", "noobs2ninjas", "riotgames", "esl_csgo", "summit1g"];
+var streamerArray = ["freecodecamp", "ESL_SC2", "BikeMan", "Dazss", "Syndicate", "goldglove", "tsm_bjergsen", "noobs2ninjas", "riotgames", "esl_csgo", "summit1g"];
 var streamerListsArray = [];
 
 
@@ -122,6 +122,7 @@ var display = {
       streamerOnlineStatusLi = document.createElement('li');
       streamerStatus = document.createElement('a');
       streamerLinkForLogo = document.createElement('a');
+      streamerLinkForStatus = document.createElement('a');
       moreInfoButton = document.createElement('div');
       moreInfoAboutStreamersDiv = document.createElement('div');
       moreInfoAboutStreamersUL = document.createElement('ul');
@@ -158,11 +159,13 @@ var display = {
       // statusOnline
       statusOnlineIcon = document.createElement('i');
       statusOnlineIcon.className = 'material-icons';
+      statusOnlineIcon.className += ' statusOnlineIcon';
       statusOnlineIcon.textContent = 'play_circle_outline';
 
       // statusOffline
       statusOfflineIcon = document.createElement('i');
       statusOfflineIcon.className = 'material-icons';
+      statusOfflineIcon.className += ' statusOfflineIcon';
       statusOfflineIcon.textContent = 'not_interested';
 
       // streamer Logo
@@ -189,24 +192,28 @@ var display = {
 
           if (streamResults[j].stream.channel.display_name === streamerNameLi.textContent) {
             // Adding Stream Link to Status
+            streamerStatus.href = streamResults[j].stream.channel.url;
+            streamerStatus.target = '_blank';
             streamerStatus.textContent = 'Currently Streaming!';
+            //streamerStatus.appendChild(streamerLinkForStatus);
             streamerOnlineStatusLi.appendChild(streamerStatus);
             streamerOnlineStatusLi.insertBefore(statusOnlineIcon, streamerOnlineStatusLi.childNodes[0]);
 
-            //Adding Stream Link to Logo
+            // Adding Stream Link to Logo
             streamerLinkForLogo.href = streamResults[j].stream.channel.url;
             streamerLinkForLogo.target = "_blank";
+            streamerLinkForLogo.appendChild(streamerLogo);
             streamerLogoLi.appendChild(streamerLinkForLogo);
 
             // Adding Game being Streamed to More Info Section
             streamerGameBeingStreamed.textContent = 'Steaming: ' +  streamResults[j].stream.game;
-            moreInfoAboutStreamersUL.appendChild(streamerGameBeingStreamed);
+            moreInfoAboutStreamersUL.insertBefore(streamerGameBeingStreamed, moreInfoAboutStreamersUL.childNodes[0]); // Adding before Bio
 
             // Adding Stream Viewers to More Info Section
             streamerViewers.textContent = 'Viewers: ' +  streamResults[j].stream.viewers;
             moreInfoAboutStreamersUL.appendChild(streamerViewers);
 
-            //Adding Stream followers to More Info Section
+            // Adding Stream followers to More Info Section
             streamerFollowers.textContent = 'Followers: ' +  streamResults[j].stream.channel.followers;
             moreInfoAboutStreamersUL.appendChild(streamerFollowers);
           }

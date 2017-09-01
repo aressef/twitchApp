@@ -195,7 +195,6 @@ var display = {
             streamerStatus.href = streamResults[j].stream.channel.url;
             streamerStatus.target = '_blank';
             streamerStatus.textContent = 'Currently Streaming!';
-            //streamerStatus.appendChild(streamerLinkForStatus);
             streamerOnlineStatusLi.appendChild(streamerStatus);
             streamerOnlineStatusLi.insertBefore(statusOnlineIcon, streamerOnlineStatusLi.childNodes[0]);
 
@@ -285,13 +284,30 @@ var display = {
 
   moreInfoSlider: function() {
     var moreInfoButtons = document.getElementsByClassName('moreInfoButton');
+    var rotate = false;
 
     for (var i = 0; i < moreInfoButtons.length; i++) {
       moreInfoButtons[i].addEventListener('click', function() {
-
         this.nextSibling.classList.toggle('moreInfoSlideDown');
         this.nextSibling.classList.toggle('moreInfoSlideUp');
+
+        // Animate Arrow
+        var arrow = this.lastChild;
+
+        if (rotate == false && arrow.classList.contains('moreInfoArrowRotateDown')) {
+          arrow.classList.toggle('moreInfoArrowRotateDown');
+          arrow.classList.toggle('moreInfoArrowRotateUp');
+          //arrow.style.transform = 'rotate(180deg)';
+        } else if (rotate == true) {
+          arrow.classList.toggle('moreInfoArrowRotateUp');
+          arrow.classList.toggle('moreInfoArrowRotateDown');
+          //arrow.style.transform = 'rotate(0deg)';
+        } else if (rotate == false){
+          arrow.classList.toggle('moreInfoArrowRotateUp');
+        }
+        rotate = !rotate;
       });
+
     }
 
   }

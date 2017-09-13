@@ -1,13 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:100,200,300');
+
 body {
-  /*overflow: hidden;*/
+ font-family: 'Raleway', sans-serif;
 }
 
 .menu {
-  overflow:hidden;
   position: fixed;
   top: 0;
   background-color: #fff;
   width: 100%;
+  z-index: 1;
 }
 
 .twitchTitle {
@@ -59,7 +61,7 @@ body {
 
 .streamerName {
   grid-area: displayName;
-  font-size: 35px;
+  font-size: 30px;
 }
 
 .streamerOnlineStatus {
@@ -67,6 +69,15 @@ body {
   align-items: center;
   grid-area: onlineStatus;
   font-size: 20px;
+}
+
+.streamerStatus {
+  text-decoration: none;
+  color: green;
+}
+
+.streamerStatus:hover {
+  font-weight: bolder;
 }
 
 .statusOnlineIcon {

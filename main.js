@@ -284,29 +284,28 @@ var display = {
 
   moreInfoSlider: function() {
     var moreInfoButtons = document.getElementsByClassName('moreInfoButton');
-    var rotate = false;
-
+    var height;
     for (var i = 0; i < moreInfoButtons.length; i++) {
       moreInfoButtons[i].addEventListener('click', function() {
+        height = this.nextSibling.clientHeight;
+
         this.nextSibling.classList.toggle('moreInfoSlideDown');
         this.nextSibling.classList.toggle('moreInfoSlideUp');
 
         // Animate Arrow
         var arrow = this.lastChild;
 
-        if (rotate == false && arrow.classList.contains('moreInfoArrowRotateDown')) {
+        if (arrow.classList.contains('moreInfoArrowRotateDown')) {
           arrow.classList.toggle('moreInfoArrowRotateDown');
           arrow.classList.toggle('moreInfoArrowRotateUp');
-          //arrow.style.transform = 'rotate(180deg)';
-        } else if (rotate == true) {
+        } else if (arrow.classList.contains('moreInfoArrowRotateUp')) {
           arrow.classList.toggle('moreInfoArrowRotateUp');
           arrow.classList.toggle('moreInfoArrowRotateDown');
-          //arrow.style.transform = 'rotate(0deg)';
-        } else if (rotate == false){
+        } else {
           arrow.classList.toggle('moreInfoArrowRotateUp');
         }
-        rotate = !rotate;
       });
+
 
     }
 

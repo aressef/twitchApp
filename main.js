@@ -152,6 +152,7 @@ var display = {
       // moreInfoButton
       keyArrowDown = document.createElement('i');
       keyArrowDown.className = 'material-icons';
+      keyArrowDown.className += ' moreInfoArrow';
       keyArrowDown.textContent = 'keyboard_arrow_down';
       moreInfoButton.textContent = 'More';
       moreInfoButton.appendChild(keyArrowDown);

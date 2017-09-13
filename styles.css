@@ -13,7 +13,7 @@ body {
 }
 
 .twitchTitle {
-  font-size: 50px;
+  font-size: 100px;
   text-align: center;
   margin-top: 5%;
   margin-bottom: 20px;
@@ -26,12 +26,12 @@ body {
 }
 
 .allStreamers, .onlineStreamers, .offlineStreamers {
-  font-size: 20px;
+  font-size: 30px;
   display: inline-block;
 }
 
 .streamerDiv {
-  margin-top: 150px;
+  margin-top: 230px;
   margin-left: 2%;
   margin-right: 2%;
 }
@@ -40,7 +40,7 @@ body {
   display: grid;
   list-style: none;
   grid-template:
-    [row1-start] "logo displayName" auto [row1-end]
+    [row1-start] "logo displayName" 100px [row1-end]
     [row2-start] "logo onlineStatus" auto [row2-end]
     [row3-start] "logo moreInfoButton" auto [row3-end]
     [row4-start] "moreInfo moreInfo" auto [row4-end]
@@ -61,14 +61,16 @@ body {
 
 .streamerName {
   grid-area: displayName;
-  font-size: 30px;
+  margin-top: 15px;
+  font-size: 75px;
 }
 
 .streamerOnlineStatus {
   display: flex;
   align-items: center;
   grid-area: onlineStatus;
-  font-size: 20px;
+  font-size: 50px;
+  margin-top: 0px;
 }
 
 .streamerStatus {
@@ -83,17 +85,24 @@ body {
 .statusOnlineIcon {
   margin-right: 2px;
   color: green;
+  font-size: 50px;
 }
 
 .statusOfflineIcon {
-  margin-right: 2px;
+  margin-right: 5px;
   color: red;
+  font-size: 50px;
 }
 
 .moreInfoButton {
   grid-area: moreInfoButton;
   display: flex;
   align-items: center;
+  font-size: 45px;
+}
+
+.moreInfoArrow {
+  font-size: 65px;
 }
 
 .moreInfoArrowRotateUp {
@@ -131,18 +140,23 @@ body {
 }
 
 .moreInfoSlideDown {
-  max-height: 150px;
+  max-height: 500px;
 }
 
 .moreInfoAboutStreamerUL {
   width: 337px;
+  font-size: 40px;
 }
 
 .streamerBio {
   grid-area: bio;
-  font-size: 18px;
+  font-size: 40px;
 }
 
-.streamerViewers {}
+.streamerViewers {
+  font-size: 40px;
+}
 
-.streamerFollowers {}
+.streamerFollowers {
+  font-size: 40px;
+}

@@ -1,7 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway:100,200,300');
+@import url('https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,700');
 
 body {
  font-family: 'Raleway', sans-serif;
+ margin-right: 10px;
+ margin-left: 10px;
 }
 
 .menu {
@@ -17,6 +19,7 @@ body {
   text-align: center;
   margin-top: 5%;
   margin-bottom: 20px;
+  color: #6441a4;
 }
 
 .filterButtons {
@@ -25,13 +28,26 @@ body {
   margin-bottom: 20px;
 }
 
-.allStreamers, .onlineStreamers, .offlineStreamers {
-  font-size: 30px;
+.allStreamers, .onlineStreamers {
+  font-size: 40px;
   display: inline-block;
 }
 
+.menuButtonSelected {
+  background-color: white;
+  border: none;
+  border-bottom-color: #6441a4;
+  border-bottom-style: solid;
+  border-bottom-width: 7px;
+  text-decoration: none;
+}
+
+.menuButtonSelected:focus {
+  outline: none;
+}
+
 .streamerDiv {
-  margin-top: 230px;
+  margin-top: 270px;
   margin-left: 2%;
   margin-right: 2%;
 }
@@ -143,20 +159,30 @@ body {
   max-height: 500px;
 }
 
-.moreInfoAboutStreamerUL {
-  width: 337px;
+.moreInfoAboutStreamersUL {
+  background-color: #F5F5F5;
   font-size: 40px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  padding: 5px;
 }
+
+b {
+  font-weight: bold;
+}
+
+.streamerGameStreaming {}
 
 .streamerBio {
   grid-area: bio;
-  font-size: 40px;
 }
 
-.streamerViewers {
-  font-size: 40px;
-}
+.streamerViewers {}
 
-.streamerFollowers {
-  font-size: 40px;
-}
+.streamerFollowers {}
+
+  @media only screen and (min-width: 1000px) {
+      body {
+          background-color: lightblue;
+      }
+  }

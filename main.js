@@ -127,7 +127,7 @@ var display = {
       moreInfoAboutStreamersDiv = document.createElement('div');
       moreInfoAboutStreamersUL = document.createElement('ul');
       streamerBioLi = document.createElement('li');
-      streamerGameBeingStreamed = document.createElement('li');
+      streamerGameStreaming = document.createElement('li');
       streamerFollowers = document.createElement('li');
       streamerViewers = document.createElement('li');
 
@@ -142,12 +142,14 @@ var display = {
       moreInfoAboutStreamersDiv.className += ' moreInfoSlideUp';
       moreInfoAboutStreamersUL.className = 'moreInfoAboutStreamersUL';
       streamerBioLi.className = 'streamerBio';
-      streamerGameBeingStreamed.className = 'streamerGameBeingStreamed';
+      streamerGameStreaming.className = 'streamerGameStreaming';
       streamerFollowers.className = 'streamerFollowers';
       streamerViewers.className = 'streamerViewers';
 
       streamerNameLi.textContent = streamerResults[i].display_name;
-      streamerBioLi.textContent = 'Bio: ' + streamerResults[i].bio;
+      bioText = 'Bio: ';
+      boldBioText = bioText.bold();
+      streamerBioLi.innerHTML = boldBioText + streamerResults[i].bio;
 
       // moreInfoButton
       keyArrowDown = document.createElement('i');
@@ -206,15 +208,21 @@ var display = {
             streamerLogoLi.appendChild(streamerLinkForLogo);
 
             // Adding Game being Streamed to More Info Section
-            streamerGameBeingStreamed.textContent = 'Steaming: ' +  streamResults[j].stream.game;
-            moreInfoAboutStreamersUL.insertBefore(streamerGameBeingStreamed, moreInfoAboutStreamersUL.childNodes[0]); // Adding before Bio
+            gameStreamingText = 'Streaming: ';
+            boldGameStreamingText = gameStreamingText.bold();
+            streamerGameStreaming.innerHTML = boldGameStreamingText +  streamResults[j].stream.game;
+            moreInfoAboutStreamersUL.insertBefore(streamerGameStreaming, moreInfoAboutStreamersUL.childNodes[0]); // Adding before Bio
 
             // Adding Stream Viewers to More Info Section
-            streamerViewers.textContent = 'Viewers: ' +  streamResults[j].stream.viewers;
+            viewersText = 'Viewers: ';
+            boldViewersText = viewersText.bold();
+            streamerViewers.innerHTML = boldViewersText +  streamResults[j].stream.viewers;
             moreInfoAboutStreamersUL.appendChild(streamerViewers);
 
             // Adding Stream followers to More Info Section
-            streamerFollowers.textContent = 'Followers: ' +  streamResults[j].stream.channel.followers;
+            followersText = 'Followers: ';
+            boldFollowersText = followersText.bold();
+            streamerFollowers.innerHTML = boldFollowersText +  streamResults[j].stream.channel.followers;
             moreInfoAboutStreamersUL.appendChild(streamerFollowers);
           }
 
@@ -233,6 +241,12 @@ var display = {
 
   allStreamers: function() {
 
+    // Selected menu button is underlined
+    var onlineSteamersButton = document.querySelector('.onlineStreamers');
+    var allStreamersButton = document.querySelector('.allStreamers');
+    allStreamersButton.classList.toggle('menuButtonSelected');
+    onlineSteamersButton.classList.toggle('menuButtonSelected');
+
     if (streamerListsArray.length === streamerArray.length) {
 
       for (var i = 0; i < streamerListsArray.length; i++) {
@@ -245,8 +259,11 @@ var display = {
 
   onlineStreamers: function() {
 
-    // if offlinestreamers() has already been executed this displays all Streamers before removing all offline streamers
-    this.allStreamers();
+    // Selected menu button is underlined
+    var onlineSteamersButton = document.querySelector('.onlineStreamers');
+    var allStreamersButton = document.querySelector('.allStreamers');
+    allStreamersButton.classList.toggle('menuButtonSelected');
+    onlineSteamersButton.classList.toggle('menuButtonSelected');
 
     var streamerLists = document.querySelectorAll('.streamerList');
     streamerListsArray = Array.from(streamerLists);

@@ -247,7 +247,9 @@ var display = {
 
     if (onlineSteamersButton.classList.contains('menuButtonSelected')) {
       allStreamersButton.classList.toggle('menuButtonSelected');
+      allStreamersButton.classList.toggle('menuButtonNotSelected');
       onlineSteamersButton.classList.toggle('menuButtonSelected');
+      onlineSteamersButton.classList.toggle('menuButtonNotSelected');
     }
 
     if (streamerListsArray.length === streamerArray.length) {
@@ -268,7 +270,9 @@ var display = {
 
     if (allStreamersButton.classList.contains('menuButtonSelected')) {
       allStreamersButton.classList.toggle('menuButtonSelected');
+      allStreamersButton.classList.toggle('menuButtonNotSelected');
       onlineSteamersButton.classList.toggle('menuButtonSelected');
+      onlineSteamersButton.classList.toggle('menuButtonNotSelected');
     }
 
     var streamerLists = document.querySelectorAll('.streamerList');

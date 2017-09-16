@@ -18,7 +18,7 @@ body {
   font-size: 100px;
   font-weight: 200;
   text-align: center;
-  margin-top: 5%;
+  margin-top: 3%;
   margin-bottom: 20px;
   color: #6441a4;
 }
@@ -32,6 +32,17 @@ body {
 .allStreamers, .onlineStreamers {
   font-size: 40px;
   display: inline-block;
+  border: none;
+  text-decoration: none;
+  background-color: #fff;
+}
+
+.allStreamers:focus, .onlineStreamers:focus {
+  outline: none;
+}
+
+.allStreamers {
+  margin-right: 5px;
 }
 
 .menuButtonSelected {
@@ -45,6 +56,10 @@ body {
 
 .menuButtonSelected:focus {
   outline: none;
+}
+
+.menuButtonNotSelected {
+  cursor: pointer;
 }
 
 .streamerDiv {
@@ -119,6 +134,7 @@ body {
   align-items: center;
   font-size: 45px;
   font-weight: 200;
+  cursor: pointer;
 }
 
 .moreInfoArrow {
@@ -176,34 +192,69 @@ b {
   font-weight: bold;
 }
 
-.streamerGameStreaming {}
-
 .streamerBio {
   grid-area: bio;
 }
 
-.streamerViewers {}
+@media only screen and (min-width: 1000px) {
 
-.streamerFollowers {}
+  .twitchTitle {
+    font-size: 75px;
+  }
 
-  @media only screen and (min-width: 1000px) {
+  .allStreamers, .onlineStreamers {
+    font-size: 25px;
+    display: inline-block;
+  }
 
-    .streamerDiv {
-      margin-top: 275px;
-      width: 75%;
-    }
+  .allStreamers {
+    margin-right: 20px;
+  }
 
-    .streamerOnlineStatus {
-      font-size: 40px;
-    }
+  .streamerDiv {
+    margin-top: 215px;
+    width: 55%;
+  }
 
-    .moreInfoButton {
-      font-size: 35px;
-    }
-
-    .moreInfoAboutStreamersUL {
-      font-size: 30px;
-      line-height: 1.2;
-    }
+  .streamerList {
+    display: grid;
+    list-style: none;
+    grid-template:
+      [row1-start] "logo displayName" 100px [row1-end]
+      [row2-start] "logo onlineStatus" auto [row2-end]
+      [row3-start] "logo moreInfoButton" auto [row3-end]
+      [row4-start] "moreInfo moreInfo" auto [row4-end]
+      / 35% 50%;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
 
   }
+
+  .streamerName {
+    font-size: 50px;
+    font-weight: 300;
+  }
+
+  .streamerOnlineStatus {
+    font-size: 30px;
+  }
+
+  .moreInfoButton {
+    font-size: 25px;
+  }
+
+  .moreInfoAboutStreamersUL {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+}
+
+@media only screen and (min-width: 1750px) {
+
+  .streamerDiv {
+    margin-top: 230px;
+    width: 50%;
+  }
+
+}

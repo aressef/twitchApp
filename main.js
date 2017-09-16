@@ -244,8 +244,11 @@ var display = {
     // Selected menu button is underlined
     var onlineSteamersButton = document.querySelector('.onlineStreamers');
     var allStreamersButton = document.querySelector('.allStreamers');
-    allStreamersButton.classList.toggle('menuButtonSelected');
-    onlineSteamersButton.classList.toggle('menuButtonSelected');
+
+    if (onlineSteamersButton.classList.contains('menuButtonSelected')) {
+      allStreamersButton.classList.toggle('menuButtonSelected');
+      onlineSteamersButton.classList.toggle('menuButtonSelected');
+    }
 
     if (streamerListsArray.length === streamerArray.length) {
 
@@ -262,8 +265,11 @@ var display = {
     // Selected menu button is underlined
     var onlineSteamersButton = document.querySelector('.onlineStreamers');
     var allStreamersButton = document.querySelector('.allStreamers');
-    allStreamersButton.classList.toggle('menuButtonSelected');
-    onlineSteamersButton.classList.toggle('menuButtonSelected');
+
+    if (allStreamersButton.classList.contains('menuButtonSelected')) {
+      allStreamersButton.classList.toggle('menuButtonSelected');
+      onlineSteamersButton.classList.toggle('menuButtonSelected');
+    }
 
     var streamerLists = document.querySelectorAll('.streamerList');
     streamerListsArray = Array.from(streamerLists);

@@ -196,6 +196,44 @@ b {
   grid-area: bio;
 }
 
+@media only screen and (min-width: 768px) {
+
+  .twitchTitle {
+    font-size: 65px;
+  }
+
+  .allStreamers, .onlineStreamers {
+    font-size: 25px;
+  }
+
+  .allStreamers {
+    margin-right: 20px;
+  }
+
+  .streamerDiv {
+    margin-top: 215px;
+    width: 65%;
+  }
+
+  .streamerName {
+    font-size: 45px;
+  }
+
+  .streamerOnlineStatus {
+    font-size: 25px;
+  }
+
+  .moreInfoButton {
+    font-size: 25px;
+  }
+
+  .moreInfoAboutStreamersUL {
+    font-size: 25px;
+  }
+
+}
+
+
 @media only screen and (min-width: 1000px) {
 
   .twitchTitle {
@@ -204,7 +242,6 @@ b {
 
   .allStreamers, .onlineStreamers {
     font-size: 25px;
-    display: inline-block;
   }
 
   .allStreamers {
@@ -217,22 +254,16 @@ b {
   }
 
   .streamerList {
-    display: grid;
-    list-style: none;
     grid-template:
       [row1-start] "logo displayName" 100px [row1-end]
       [row2-start] "logo onlineStatus" auto [row2-end]
       [row3-start] "logo moreInfoButton" auto [row3-end]
       [row4-start] "moreInfo moreInfo" auto [row4-end]
       / 35% 50%;
-    grid-column-gap: 10px;
-    grid-row-gap: 10px;
-
   }
 
   .streamerName {
     font-size: 50px;
-    font-weight: 300;
   }
 
   .streamerOnlineStatus {
@@ -245,7 +276,6 @@ b {
 
   .moreInfoAboutStreamersUL {
     font-size: 20px;
-    line-height: 1.2;
   }
 
 }

@@ -196,43 +196,7 @@ b {
   grid-area: bio;
 }
 
-@media only screen and (min-width: 768px) {
-
-  .twitchTitle {
-    font-size: 65px;
-  }
-
-  .allStreamers, .onlineStreamers {
-    font-size: 25px;
-  }
-
-  .allStreamers {
-    margin-right: 20px;
-  }
-
-  .streamerDiv {
-    margin-top: 215px;
-    width: 65%;
-  }
-
-  .streamerName {
-    font-size: 45px;
-  }
-
-  .streamerOnlineStatus {
-    font-size: 25px;
-  }
-
-  .moreInfoButton {
-    font-size: 25px;
-  }
-
-  .moreInfoAboutStreamersUL {
-    font-size: 25px;
-  }
-
-}
-
+/* Responsive Design */
 
 @media only screen and (min-width: 1000px) {
 
